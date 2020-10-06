@@ -3,10 +3,10 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { User } from '../user/User';
 import { Contact } from '../contact/Contact';
+import { Card } from '../card/Card';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
     },
     instructions: {
+      margin: '0px auto',
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
@@ -43,18 +44,18 @@ export const  SignUp: FC = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  // const handleReset = () => {
+  //   setActiveStep(0);
+  // };
 
   function getStepContent(stepIndex: number) {
     switch (stepIndex) {
       case 0:
         return <User user={user} setUser={setUser} steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />;
       case 1:
-        return <Contact />;
+        return <Contact info={info} setInfo={setInfo} steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />;
       case 2:
-        return 'This is the bit I really care about!';
+        return <Card payment={payment} setPayment={setPayment} steps={steps} activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />;
       default:
         return 'Unknown stepIndex';
     }
@@ -72,8 +73,7 @@ export const  SignUp: FC = () => {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>All steps completed</Typography>
-            <Button onClick={handleReset}>Reset</Button>
+            <Typography className={classes.instructions}>All steps completed - you&apos;re Registered now</Typography>
           </div>
         ) : (
           <div>

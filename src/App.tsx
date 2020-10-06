@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { SignUp } from './components/signUp/SignUp';
 
 function App() {
   return (
-    <div className="App">
+    <Fragment >
       <SignUp />
-    </div>
+    </Fragment>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { TextField, Button, makeStyles, createStyles, Theme } from "@material-ui/core";
 import * as Yup from 'yup';
@@ -23,7 +23,7 @@ interface UserProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     textBox: {
-        margin: '10px 0px'
+        margin: '7px 0px'
     },
     button: {
         marginRight: theme.spacing(1),
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: 'tomato',
         fontSize: '12px',
         paddingLeft: '5px'
-    },
+    }
   }),
 );
 
@@ -49,7 +49,7 @@ const validationSchema = Yup.object().shape<initialValue>({
     password: Yup.string()
         .min(8, 'Must be at least 8 characters')
         .max(15, )
-        .matches(/^.*[A-Z].*$/, 'At Least One Upper Case')
+        .matches(/^.*[!@#$%^&*()_+\-=\]{};':"\\|,.<>?].*$/, 'At Least One Special Character')
         .matches(/^.*[0-9].*$/, 'At Least One Number')
         .required('Rquired'),
     confirmPassword: Yup.string()
@@ -63,7 +63,7 @@ export const User: FC<UserProps> = ({ user, setUser, steps, activeStep, handleNe
     const classes = useStyles()
     
     return (
-        <div>
+        <Fragment>
             <Formik
                 initialValues={initialValue}
                 validationSchema={validationSchema}
@@ -74,25 +74,25 @@ export const User: FC<UserProps> = ({ user, setUser, steps, activeStep, handleNe
                 }
             }
             > 
-            <div style={{width: '345px', maxWidth: '320px', margin: "0px auto", textAlign: 'left', overflow: 'hidden' }}>
+            <div style={{width: '345px', maxWidth: '320px', margin: "0 auto", overflow: 'hidden' }}>
             <Form>
-                <Field as={TextField} name='firstName' variant='outlined' label='First Name' fullWidth />
+                <Field as={TextField} classes={{root: classes.textBox}} name='firstName' variant='outlined' label='First Name' fullWidth />
                 <ErrorMessage name='firstName' >
                     {(msg) => (<span className={classes.error} >{msg}</span>)}
                 </ErrorMessage>
-                <Field as={TextField} name='lastName' variant='outlined' label='Last Name' fullWidth />
+                <Field as={TextField} classes={{root: classes.textBox}}  name='lastName' variant='outlined' label='Last Name' fullWidth />
                 <ErrorMessage name='lastName' >
                     {(msg) => (<span className={classes.error}>{msg}</span>)}
                 </ErrorMessage>
-                <Field as={TextField} name='email' variant='outlined' label='Email' fullWidth />
+                <Field as={TextField} classes={{root: classes.textBox}}  name='email' variant='outlined' label='Email' fullWidth />
                 <ErrorMessage name='email' >
                     {(msg) => (<span className={classes.error}>{msg}</span>)}
                 </ErrorMessage>
-                <Field as={TextField} name='password' variant='outlined' label='Password' fullWidth  />
+                <Field as={TextField} type='password' classes={{root: classes.textBox}}  name='password' variant='outlined' label='Password' fullWidth  />
                 <ErrorMessage name='password' >
                     {(msg) => (<span className={classes.error}>{msg}</span>)}
                 </ErrorMessage>
-                <Field as={TextField} name='confirmPassword' variant='outlined' label='Confirm Password' fullWidth />
+                <Field as={TextField} type='password' classes={{root: classes.textBox}}  name='confirmPassword' variant='outlined' label='Confirm Password' fullWidth />
                 <ErrorMessage name='confirmPassword' >
                     {(msg) => (<span className={classes.error}>{msg}</span>)}
                 </ErrorMessage>
@@ -111,6 +111,6 @@ export const User: FC<UserProps> = ({ user, setUser, steps, activeStep, handleNe
           </Form>  
             </div>
             </Formik>
-        </div>
+        </Fragment>
     )
 }
